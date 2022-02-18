@@ -38,8 +38,8 @@ namespace RetoCanvia.Controllers
         }
 
         // PUT api/<CarreraController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CarreraModel value)
+        [HttpPut]
+        public void Put([FromBody] CarreraModel value)
         {
             _carreraService.Actualizar(value);
         }

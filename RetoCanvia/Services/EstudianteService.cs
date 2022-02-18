@@ -140,10 +140,22 @@ namespace RetoCanvia.Services
         /// <param name="id"></param>
         public void Eliminar(int id)
         {
-            SqlCommand comando = new SqlCommand("sp_eliminar_estudiante", cnn);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.AddWithValue("@id", id);
-            comando.ExecuteNonQuery();
+            Conectar();
+            try
+            {
+                SqlCommand comando = new SqlCommand("sp_eliminar_estudiante", cnn);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id", id);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
         }
     }
 }

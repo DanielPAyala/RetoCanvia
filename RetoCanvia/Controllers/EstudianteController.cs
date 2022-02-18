@@ -38,8 +38,8 @@ namespace RetoCanvia.Controllers
         }
 
         // PUT api/<EstudianteController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] EstudianteModel value)
+        [HttpPut]
+        public void Put([FromBody] EstudianteModel value)
         {
             _estudianteService.Actualizar(value);
         }

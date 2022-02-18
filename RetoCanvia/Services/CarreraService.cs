@@ -56,7 +56,6 @@ namespace RetoCanvia.Services
             {
                 SqlCommand comando = new SqlCommand("sp_guardar_carrera", cnn);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@carreraid", obj.CarreraId);
                 comando.Parameters.AddWithValue("@nombre", obj.Nombre);
                 comando.ExecuteNonQuery();
             }
@@ -113,7 +112,7 @@ namespace RetoCanvia.Services
             {
                 SqlCommand comando = new SqlCommand("sp_editar_carrera", cnn);
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@carreraid", obj.CarreraId);
+                comando.Parameters.AddWithValue("@id", obj.CarreraId);
                 comando.Parameters.AddWithValue("@nombre", obj.Nombre);
                 comando.ExecuteNonQuery();
             }
@@ -133,10 +132,22 @@ namespace RetoCanvia.Services
         /// <param name="id"></param>
         public void Eliminar(int id)
         {
-            SqlCommand comando = new SqlCommand("sp_eliminar_carrera", cnn);
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.AddWithValue("@id", id);
-            comando.ExecuteNonQuery();
+            Conectar();
+            try
+            {
+                SqlCommand comando = new SqlCommand("sp_eliminar_carrera", cnn);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id", id);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
         }
     }
 }
